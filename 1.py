@@ -30,15 +30,15 @@ class MainApp(App):
                 button.bind(on_press=self.on_button_press)
                 h_layout.add_widget(button)
             main_layout.add_widget(h_layout)
-
+ 
         equals_button = Button(
             text="=", pos_hint={"center_x": 0.5, "center_y": 0.5}
         )
         equals_button.bind(on_press=self.on_solution)
         main_layout.add_widget(equals_button)
-
+ 
         return main_layout
-
+ 
     def on_button_press(self, instance):
         current = self.solution.text
         button_text = instance.text
@@ -47,7 +47,7 @@ class MainApp(App):
             self.solution.text = ""
         else:
             if current and (
-                    self.last_was_operator and button_text in self.operators):
+                self.last_was_operator and button_text in self.operators):
                 # Не добавляйте два оператора подряд, рядом друг с другом
                 return
             elif current == "" and button_text in self.operators:
@@ -58,17 +58,19 @@ class MainApp(App):
                 self.solution.text = new_text
         self.last_button = button_text
         self.last_was_operator = self.last_button in self.operators
-
+ 
     def on_solution(self, instance):
         text = self.solution.text
         if text:
             solution = str(eval(self.solution.text))
             self.solution.text = solution
-
-
+ 
+ 
 if __name__ == "__main__":
     app = MainApp()
     app.run()
+
+
 
 
 
